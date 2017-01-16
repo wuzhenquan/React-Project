@@ -8,9 +8,9 @@ import ReactDOM from 'react-dom'
 
 class App extends Component {
   render() {
-    // connect 之后, 会将 mapStateToProps 函数中所要返回的对象注入到 this.props 中
+    // connect 之后, 会将 mapStateToProps, mapDispatchToProps 函数中所要返回的对象注入到 this.props 中
+    // 注入之后, 用 this.props.dispatch 便可直接 dispatch 一个 action, 如果不用的话, 得 store.dispatch 一下了
     const { visibleTodos, visibilityFilter} = this.props // redux state 的数据
-    // actions 函数
     const { onAddClick, onTodoClick, onFilterChange }  = this.props // redux actions 的函数
     return (
       <div>
