@@ -1,5 +1,5 @@
 {
-  "name": "todolist-react-redux",
+  "name": "react-project",
   "version": "1.0.0",
   "description": "",
   "dependencies": {},
@@ -13,6 +13,7 @@
     "react-dom": "^0.14.6",
     "react-redux": "^4.0.6",
     "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0",
     "webpack": "^1.12.10"
   },
   "scripts": {
