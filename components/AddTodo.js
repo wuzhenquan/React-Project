@@ -3,9 +3,10 @@ import {findDOMNode} from 'react-dom'
 
 export default class AddTodo extends Component {
   handleClick(e) {
+    const { actions } = this.props
     const node = findDOMNode(this.refs.input);
     const text = node.value.trim();
-    this.props.onAddClick(text);
+    this.props.actions.addTodo(text);
     node.value = '';
   }
   render() {
@@ -21,5 +22,5 @@ export default class AddTodo extends Component {
 }
 
 AddTodo.propTypes = {
-  onAddClick: PropTypes.func.isRequired
+  actions: PropTypes.object
 }

@@ -3,7 +3,8 @@ import Todo from './Todo'
 
 export default class TodoList extends Component {
   render(){
-  let { visibleTodos, onTodoClick} = this.props;
+    const { actions } = this.props;
+    let { visibleTodos} = this.props;
     return (
       <ul>  
         {
@@ -12,7 +13,7 @@ export default class TodoList extends Component {
               <Todo 
                 {...todo}
                 key={index}
-                onTodoClick={() => {onTodoClick(index)}}
+                onTodoClick={() => {actions.completeTodo(index)}}
               />
             )
           })
@@ -23,7 +24,6 @@ export default class TodoList extends Component {
 }
 
 TodoList.propTypes = {
-  onTodoClick: PropTypes.func.isRequired,
   visibleTodos: PropTypes.arrayOf(PropTypes.shape({ // 是否符合指定格式
     text: PropTypes.string.isRequired,
     completed: PropTypes.bool.isRequired

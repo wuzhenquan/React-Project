@@ -2,12 +2,13 @@ import React, { Component, PropTypes } from 'react'
 
 export default class Footer extends Component {
   renderFilter(filter, name){
-    let {visibilityFilter, onFilterChange} = this.props;
+    const { actions } = this.props
+    let {visibilityFilter} = this.props
     if(filter === visibilityFilter){
       return name
     }
     return (
-      <a href='#' onClick={()=>{onFilterChange(filter)}}>
+      <a href='#' onClick={()=>{actions.setVisibilityFilter(filter)}}>
         {name}
       </a>
     )
@@ -24,7 +25,6 @@ export default class Footer extends Component {
 }
 
 Footer.propTypes = {
-  onFilterChange: PropTypes.func.isRequired,
   visibilityFilter: PropTypes.oneOf([
     'SHOW_ALL',
     'SHOW_COMPLETED',

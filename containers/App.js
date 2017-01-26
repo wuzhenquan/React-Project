@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
+import {bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
-import { addTodo, completeTodo, setVisibilityFilter, VisibilityFilters } from '../actions/actions.js'
+import { VisibilityFilters } from '../actions/actions.js'
+import * as todoActionCreators from '../actions/actions.js'
 import AddTodo from '../components/AddTodo'
 import TodoList from '../components/TodoList'
 import Footer from '../components/Footer'
@@ -10,20 +12,20 @@ class App extends Component {
   render() {
     // connect 之后, 会将 mapStateToProps, mapDispatchToProps 函数中所要返回的对象注入到 this.props 中
     // 注入之后, 用 this.props.dispatch 便可直接 dispatch 一个 action, 如果不用的话, 得 store.dispatch 一下了
+    const { actions }  = this.props // redux actions 的函数
     const { visibleTodos, visibilityFilter} = this.props // redux state 的数据
-    const { onAddClick, onTodoClick, onFilterChange }  = this.props // redux actions 的函数
     return (
       <div>
         <AddTodo
-          onAddClick={(text)=>{onAddClick(text)}} 
+          actions = { actions }
         />
         <TodoList
+          actions = { actions }
           visibleTodos={visibleTodos}
-          onTodoClick={(index)=>{onTodoClick(index)}} 
         />
         <Footer
+          actions = { actions }
           visibilityFilter={visibilityFilter}
-          onFilterChange={(nextFilter)=>{onFilterChange(nextFilter)}}
         />
       </div>
     )
@@ -67,11 +69,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch){
-  return {
-    onAddClick: (text) => {dispatch(addTodo(text))},
-    onTodoClick: (index) => {dispatch(completeTodo(index))},
-    onFilterChange: (nextFilter) => {dispatch(setVisibilityFilter(nextFilter))},
-  }
+  return {actions: bindActionCreators(todoActionCreators, dispatch)}
 }
 
 // 包装 component ，注入 dispatch 和 state 到其默认的 connect(mapStateToProps)(App) 中；
