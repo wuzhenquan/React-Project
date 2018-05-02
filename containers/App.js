@@ -12,8 +12,8 @@ class App extends Component {
   render() {
     // connect 之后, 会将 mapStateToProps, mapDispatchToProps 函数中所要返回的对象注入到 this.props 中
     // 注入之后, 用 this.props.dispatch 便可直接 dispatch 一个 action, 如果不用的话, 得 store.dispatch 一下了
-    const { actions }  = this.props // redux actions 的函数
-    const { visibleTodos, visibilityFilter} = this.props // redux state 的数据
+    const { actions }  = this.props // react-redux actions 的函数
+    const { visibleTodos, visibilityFilter} = this.props // react-redux state 的数据
     return (
       <div>
         <AddTodo
@@ -69,9 +69,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch){
+  // todoActionCreators 是从其他文件 import 的 一堆 action creators
   return {actions: bindActionCreators(todoActionCreators, dispatch)}
 }
 
 // 包装 component ，注入 dispatch 和 state 到其默认的 connect(mapStateToProps)(App) 中；
-// mapStateToProps 是一个返回对象的函数
-export default connect(mapStateToProps,mapDispatchToProps)(App)
+// connect 之后就可以在当前组件用 this.props.actions, this.props.visibilityFilter 获取到 state 和 actions 了
+export default connect(mapStateToProps,mapDispatchToProps)(App) // react-redux
